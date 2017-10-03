@@ -43,3 +43,4 @@ Release/SKMediaPlayer.res
 Win32/Debug/SKMediaPlayer.exe
 Win32/Release/SKMediaPlayer.exe
 SKMediaPlayer.suo
+*.ipch
