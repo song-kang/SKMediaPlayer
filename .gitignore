@@ -44,3 +44,4 @@ Win32/Debug/SKMediaPlayer.exe
 Win32/Release/SKMediaPlayer.exe
 SKMediaPlayer.suo
 *.ipch
+Win32/Release/plugins/plugins.dat
