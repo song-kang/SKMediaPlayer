@@ -42,9 +42,13 @@ void SKMediaPlayer::Init()
 	m_iTimer->setInterval(300);
 	m_bPauseSliderTime = false;
 	m_bClickSliderTime = false;
+	m_bStartJumpTime = false;
 	m_iFullScrMouse = 0;
 	m_bIsShowSystemTime = true;
 	m_bIsShowParams = true;
+
+	m_playList = new CPlayList(this);
+	m_playList->ReadList();
 
 	vlcPlayer = NULL;
 	vlcInstance = libvlc_new(0, NULL);
@@ -237,6 +241,8 @@ void SKMediaPlayer::keyPressEvent(QKeyEvent *e)
 void SKMediaPlayer::closeEvent(QCloseEvent *e)
 {
 	SlotPause();
+	m_playList->WriteList();
+
 	e->accept();
 }
 
@@ -389,6 +395,7 @@ void SKMediaPlayer::SlotPause()
 		m_bUnableWindow = true;
 	}
 
+	m_playList->WriteList();
 	m_simpleParamWidget->hide();
 }
 
@@ -408,7 +415,7 @@ void SKMediaPlayer::SlotOpen()
 
 void SKMediaPlayer::Play(QString file)
 {
-	file.replace(":/",":\\");
+	file.replace("/","\\");
 	libvlc_media_t *vlcMedia = libvlc_media_new_path(vlcInstance, file.toUtf8().constData());
 	if (!vlcMedia)
 		return;
@@ -417,7 +424,13 @@ void SKMediaPlayer::Play(QString file)
 	vlcPlayer = libvlc_media_player_new_from_media(vlcMedia);
 	libvlc_media_release(vlcMedia);
 	libvlc_media_player_set_hwnd(vlcPlayer,(void*)m_centerWidget->winId());
-	libvlc_media_player_play(vlcPlayer);
+	if (libvlc_media_player_play(vlcPlayer) == -1)
+		return;
+
+	m_iCurrentFile = file;
+	m_iJumpTime = m_playList->AppendItem(file);
+	if (m_iJumpTime > 0)	
+		m_bStartJumpTime = true;
 
 	QFileInfo fi(file);
 	m_topWidget->GetLabelTitle()->setText(" "+tr("SKMediaPlayer")+tr(" - %1").arg(fi.fileName()));
@@ -518,7 +531,36 @@ void SKMediaPlayer::SlotTimeout()
 				time_max = m_bottomWidget->GetSliderTime()->maximum();
 			}
 			libvlc_media_player_set_position(vlcPlayer,(float)time_cur/time_max);
+			m_playList->ReplaceItemTime(m_iCurrentFile,time_cur);
 			m_bClickSliderTime = false;
+		}
+
+		if (m_bStartJumpTime)
+		{
+			int time_max;
+			if (this->isFullScreen())
+			{
+				time_max = m_bottomFloatWidget->GetSliderTime()->maximum();
+			}
+			else
+			{
+				time_max = m_bottomWidget->GetSliderTime()->maximum();
+			}
+			if (time_max > 0)
+			{
+				if (m_iJumpTime > time_max)
+				{
+					m_iJumpTime = 0;
+					m_playList->ReplaceItemTime(m_iCurrentFile,m_iJumpTime);
+				}
+				else
+				{
+					m_bottomWidget->GetSliderTime()->setValue(m_iJumpTime);
+					m_bottomFloatWidget->GetSliderTime()->setValue(m_iJumpTime);
+					libvlc_media_player_set_position(vlcPlayer,(float)m_iJumpTime/time_max);
+				}
+				m_bStartJumpTime = false;
+			}
 		}
 
 		int volume = m_bottomWidget->GetSliderVolume()->value();
@@ -546,8 +588,11 @@ void SKMediaPlayer::SlotTimeout()
 		
 		libvlc_time_t total = libvlc_media_player_get_length(vlcPlayer)/1000;
 		libvlc_time_t time = libvlc_media_player_get_time(vlcPlayer)/1000;
-		if (total >= 0 && time >= 0)
+		if (total > 0 && time > 0)
 		{
+			if (!(time % 10))
+				m_playList->ReplaceItemTime(m_iCurrentFile,time);
+			
 			if (!m_bPauseSliderTime) //拖动时间轴时，暂停时间轴更新
 			{
 				m_bottomWidget->GetSliderTime()->setRange(0,total);
@@ -560,12 +605,12 @@ void SKMediaPlayer::SlotTimeout()
 			QString sTime;
 			int hour = total / 3600;
 			int minute = (total % 3600) / 60;
-			int second = (total%60);
+			int second = (total % 60);
 			sTotal.sprintf("%02d:%02d:%02d",hour,minute,second);
 
 			hour = time / 3600;
 			minute = (time % 3600) / 60;
-			second = (time%60);
+			second = (time % 60);
 			sTime.sprintf("%02d:%02d:%02d",hour,minute,second);
 			m_bottomWidget->GetLabelTime()->setText(sTime+"/"+sTotal);
 			m_bottomFloatWidget->GetLabelTime()->setText(sTime+"/"+sTotal);

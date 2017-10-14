@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "common.h"
+#include "PushButton.h"
 
 class SKMediaPlayer;
 class CBottomWidget : public QWidget
@@ -38,6 +39,7 @@ private:
 	QPushButton *m_btnForward;		//前进
 	QPushButton *m_btnRewind;		//后退
 	QPushButton *m_btnFullscreen;	//全屏
+	PushButton  *m_btnList;			//列表
 	QSlider	*m_sliderTime;			//时间轴
 	QSlider *m_sliderVolume;		//音量轴
 

@@ -64,6 +64,7 @@
         <file alias="zoom_out">Resources/images/zoom_out.png</file>
         <file alias="camera">Resources/images/camera.png</file>
         <file alias="link">Resources/images/link.png</file>
+        <file alias="list">Resources/images/List.png</file>
     </qresource>
     <qresource prefix="/skin">
         <file alias="skin1">Resources/skins/skin1.png</file>

@@ -166,6 +166,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_caboutwidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="cplaylist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_cplaylist.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_cplaylist.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="skmediaplayer.h">
@@ -208,6 +217,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="caboutwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="cplaylist.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

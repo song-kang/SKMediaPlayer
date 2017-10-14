@@ -12,6 +12,7 @@
 #include "csystemwidget.h"
 #include "csimpleparamwidget.h"
 #include "caboutwidget.h"
+#include "cplaylist.h"
 #include <vlc/vlc.h>
 
 class SKMediaPlayer : public AbsFrameLessAutoSize
@@ -68,6 +69,11 @@ private:
 
 	libvlc_instance_t *vlcInstance;
 	libvlc_media_player_t *vlcPlayer;
+
+	QString m_iCurrentFile;
+	CPlayList *m_playList;
+	bool m_bStartJumpTime;
+	quint32 m_iJumpTime;
 
 private:
 	void Init();
