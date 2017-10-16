@@ -617,7 +617,10 @@ void SKMediaPlayer::SlotTimeout()
 			m_simpleParamWidget->GetLabelTime()->setText(sTime);
 
 			if (libvlc_media_player_get_state(vlcPlayer) == libvlc_Ended)
+			{
 				SlotPause();
+				m_playList->ReplaceItemTime(m_iCurrentFile,0);
+			}
 		}
 
 		if (this->isFullScreen())
