@@ -29,9 +29,11 @@ public:
 	quint32 AppendItem(QString path);
 	void ReplaceItemTime(QString path, quint32 time);
 
+public:
+	QList<stuPlayItem*> m_iPlayItems;
+
 private:
 	QFile m_iFile;
-	QList<stuPlayItem*> m_iPlayItems;
 	
 };
 

@@ -29,6 +29,7 @@ SKMediaPlayer::~SKMediaPlayer()
 	delete m_simpleParamWidget;
 	delete m_mainWidget;
 	delete m_mainGridLayout;
+	delete m_playList;
 
 	foreach (stuMediaTrack *track, m_iMediaTrackList)
 		delete track;
@@ -46,6 +47,7 @@ void SKMediaPlayer::Init()
 	m_iFullScrMouse = 0;
 	m_bIsShowSystemTime = true;
 	m_bIsShowParams = true;
+	m_bPlaylist = false;
 
 	m_playList = new CPlayList(this);
 	m_playList->ReadList();
@@ -83,10 +85,18 @@ void SKMediaPlayer::InitUi()
 
 	m_centerWidget = new CCenterWidget();
 	m_centerWidget->SetApp(this);
-	QVBoxLayout *centerLayout = new QVBoxLayout;
+	m_pListWidget = new CPlistWidget();
+	m_pListWidget->SetApp(this);
+	m_pListWidget->SetPlayList(m_playList);
+	m_pListWidget->Start();
+	m_pListWidget->hide();
+	QHBoxLayout *centerLayout = new QHBoxLayout;
 	centerLayout->addWidget(m_centerWidget);
-	centerLayout->setSpacing(0);
+	centerLayout->addWidget(m_pListWidget);
+	centerLayout->setSpacing(1);
 	centerLayout->setContentsMargins(0,0,0,0);
+	centerLayout->setStretch(0,7);
+	centerLayout->setStretch(1,3);
 
 	m_bottomWidget = new CBottomWidget();
 	m_bottomWidget->SetApp(this);
@@ -138,6 +148,7 @@ void SKMediaPlayer::InitSlot()
 	connect(m_bottomWidget,SIGNAL(sigForward()),this,SLOT(SlotForward()));
 	connect(m_bottomWidget,SIGNAL(sigRewind()),this,SLOT(SlotRewind()));
 	connect(m_bottomWidget,SIGNAL(sigFullscreen()),this,SLOT(SlotFullScreen()));
+	connect(m_bottomWidget,SIGNAL(sigPlaylist()),this,SLOT(SlotPlaylist()));
 
 	connect(m_bottomFloatWidget,SIGNAL(sigStartStop()),this,SLOT(SlotStartStop()));
 	connect(m_bottomFloatWidget,SIGNAL(sigPause()),this,SLOT(SlotPause()));
@@ -145,10 +156,13 @@ void SKMediaPlayer::InitSlot()
 	connect(m_bottomFloatWidget,SIGNAL(sigForward()),this,SLOT(SlotForward()));
 	connect(m_bottomFloatWidget,SIGNAL(sigRewind()), this,SLOT(SlotRewind()));
 	connect(m_bottomFloatWidget,SIGNAL(sigFullscreen()),this,SLOT(SlotFullScreen()));
+	connect(m_bottomFloatWidget,SIGNAL(sigPlaylist()),this,SLOT(SlotPlaylist()));
 
 	connect(m_iMenu,SIGNAL(sigOpenFile()),this,SLOT(SlotOpen()));
 	connect(m_iMenu,SIGNAL(sigClose()),this,SLOT(SlotPause()));
 	connect(m_iMenu,SIGNAL(sigAbout()),this,SLOT(SlotAbout()));
+
+	connect(m_pListWidget,SIGNAL(sigSelectFile(QString)),this,SLOT(SlotSelectFile(QString)));
 }
 
 void SKMediaPlayer::mouseMoveEvent(QMouseEvent *event)
@@ -253,11 +267,11 @@ void SKMediaPlayer::paintEvent(QPaintEvent *e)
 	QPainterPath path;
 	path.setFillRule(Qt::WindingFill);
 	path.addRect(SHADOW_WIDTH,SHADOW_WIDTH,this->width()-SHADOW_WIDTH*2,this->height()-SHADOW_WIDTH*2);
-	
+
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing, true);
 	painter.fillPath(path,QBrush(Qt::black));
-	
+
 	QColor color(0, 0, 0, 50);
 	for (int i = 0; i < SHADOW_WIDTH; i++)
 	{
@@ -739,6 +753,21 @@ void SKMediaPlayer::SlotAbout()
 
 	m_aboutWidget->setSkin(m_mainWidget->GetCurSkin());
 	m_aboutWidget->show();
+}
+
+void SKMediaPlayer::SlotPlaylist()
+{
+	m_bPlaylist = !m_bPlaylist;
+	if (m_bPlaylist)
+		m_pListWidget->show();
+	else
+		m_pListWidget->hide();
+}
+
+void SKMediaPlayer::SlotSelectFile(QString path)
+{
+	SlotPause();
+	Play(path);
 }
 
 QString SKMediaPlayer::_Utf8ToGb2312(QString text)

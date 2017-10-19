@@ -66,67 +66,77 @@
 <context>
     <name>CBottomFloatWidget</name>
     <message>
-        <location filename="cbottomfloatwidget.cpp" line="59"/>
+        <location filename="cbottomfloatwidget.cpp" line="60"/>
         <source>Play/Pause</source>
         <translation type="unfinished">播放/暂停</translation>
     </message>
     <message>
-        <location filename="cbottomfloatwidget.cpp" line="66"/>
+        <location filename="cbottomfloatwidget.cpp" line="67"/>
         <source>Open file</source>
         <translation type="unfinished">打开文件</translation>
     </message>
     <message>
-        <location filename="cbottomfloatwidget.cpp" line="73"/>
+        <location filename="cbottomfloatwidget.cpp" line="74"/>
         <source>Stop</source>
         <translation type="unfinished">结束</translation>
     </message>
     <message>
-        <location filename="cbottomfloatwidget.cpp" line="80"/>
+        <location filename="cbottomfloatwidget.cpp" line="81"/>
         <source>Forward</source>
         <translation type="unfinished">快进</translation>
     </message>
     <message>
-        <location filename="cbottomfloatwidget.cpp" line="87"/>
+        <location filename="cbottomfloatwidget.cpp" line="88"/>
         <source>Rewind</source>
         <translation type="unfinished">后退</translation>
     </message>
     <message>
-        <location filename="cbottomfloatwidget.cpp" line="94"/>
+        <location filename="cbottomfloatwidget.cpp" line="95"/>
         <source>Full Screen</source>
         <translation type="unfinished">全屏</translation>
+    </message>
+    <message>
+        <location filename="cbottomfloatwidget.cpp" line="102"/>
+        <source>List</source>
+        <translation type="unfinished">影音列表</translation>
     </message>
 </context>
 <context>
     <name>CBottomWidget</name>
     <message>
-        <location filename="cbottomwidget.cpp" line="48"/>
+        <location filename="cbottomwidget.cpp" line="49"/>
         <source>Play/Pause</source>
         <translation type="unfinished">播放/暂停</translation>
     </message>
     <message>
-        <location filename="cbottomwidget.cpp" line="55"/>
+        <location filename="cbottomwidget.cpp" line="56"/>
         <source>Open file</source>
         <translation type="unfinished">打开文件</translation>
     </message>
     <message>
-        <location filename="cbottomwidget.cpp" line="62"/>
+        <location filename="cbottomwidget.cpp" line="63"/>
         <source>Stop</source>
         <translation type="unfinished">结束</translation>
     </message>
     <message>
-        <location filename="cbottomwidget.cpp" line="69"/>
+        <location filename="cbottomwidget.cpp" line="70"/>
         <source>Forward</source>
         <translation type="unfinished">快进</translation>
     </message>
     <message>
-        <location filename="cbottomwidget.cpp" line="76"/>
+        <location filename="cbottomwidget.cpp" line="77"/>
         <source>Rewind</source>
         <translation type="unfinished">后退</translation>
     </message>
     <message>
-        <location filename="cbottomwidget.cpp" line="83"/>
+        <location filename="cbottomwidget.cpp" line="84"/>
         <source>Full Screen</source>
         <translation type="unfinished">全屏</translation>
+    </message>
+    <message>
+        <location filename="cbottomwidget.cpp" line="91"/>
+        <source>List</source>
+        <translation type="unfinished">影音列表</translation>
     </message>
 </context>
 <context>
@@ -265,6 +275,19 @@
     </message>
 </context>
 <context>
+    <name>CPlistWidget</name>
+    <message>
+        <location filename="cplistwidget.cpp" line="27"/>
+        <source>Name</source>
+        <translation type="unfinished">名称</translation>
+    </message>
+    <message>
+        <location filename="cplistwidget.cpp" line="27"/>
+        <source>Time</source>
+        <translation type="unfinished">时间</translation>
+    </message>
+</context>
+<context>
     <name>CSimpleParamWidget</name>
     <message>
         <location filename="csimpleparamwidget.cpp" line="38"/>
@@ -354,39 +377,39 @@
 <context>
     <name>SKMediaPlayer</name>
     <message>
-        <location filename="skmediaplayer.cpp" line="219"/>
-        <location filename="skmediaplayer.cpp" line="228"/>
+        <location filename="skmediaplayer.cpp" line="238"/>
+        <location filename="skmediaplayer.cpp" line="247"/>
         <source>volume %1</source>
         <translation type="unfinished">音量 %1</translation>
     </message>
     <message>
-        <location filename="skmediaplayer.cpp" line="371"/>
-        <location filename="skmediaplayer.cpp" line="422"/>
+        <location filename="skmediaplayer.cpp" line="392"/>
+        <location filename="skmediaplayer.cpp" line="450"/>
         <source>SKMediaPlayer</source>
         <translation type="unfinished">久为影音</translation>
     </message>
     <message>
-        <location filename="skmediaplayer.cpp" line="400"/>
+        <location filename="skmediaplayer.cpp" line="422"/>
         <source>Movie File(*.rmvb *.rm *.avi *.wmv *.mkv *.asf *.3gp *.mov *.mp4 *.ogv *.flv);;All File(*.*)</source>
         <translation type="unfinished">媒体文件(*.rmvb *.rm *.avi *.wmv *.mkv *.asf *.3gp *.mov *.mp4 *.ogv *.flv);;所有文件(*.*)</translation>
     </message>
     <message>
-        <location filename="skmediaplayer.cpp" line="401"/>
+        <location filename="skmediaplayer.cpp" line="423"/>
         <source>Load File</source>
         <translation type="unfinished">选择文件</translation>
     </message>
     <message>
-        <location filename="skmediaplayer.cpp" line="422"/>
+        <location filename="skmediaplayer.cpp" line="450"/>
         <source> - %1</source>
         <translation type="unfinished"> - %1</translation>
     </message>
     <message>
-        <location filename="skmediaplayer.cpp" line="459"/>
+        <location filename="skmediaplayer.cpp" line="487"/>
         <source>%1:%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="skmediaplayer.cpp" line="565"/>
+        <location filename="skmediaplayer.cpp" line="524"/>
         <source>%1</source>
         <translation type="unfinished"></translation>
     </message>

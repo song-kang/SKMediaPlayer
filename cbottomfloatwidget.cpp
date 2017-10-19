@@ -42,6 +42,7 @@ void CBottomFloatWidget::InitUi()
 	m_btnForward = new QPushButton(this);
 	m_btnRewind = new QPushButton(this);
 	m_btnFullscreen = new QPushButton(this);
+	m_btnList = new PushButton(this);
 	m_sliderTime = new QSlider(Qt::Horizontal,this);
 	m_sliderVolume = new QSlider(Qt::Horizontal,this);
 
@@ -97,6 +98,9 @@ void CBottomFloatWidget::InitUi()
 		"QPushButton::hover{border-image:url(:/image/fullscreen_hover);}"
 		"QPushButton::pressed{border-image:url(:/image/fullscreen_down);}");
 
+	m_btnList->loadPixmap(":/image/list");
+	m_btnList->setToolTip(tr("List"));
+
 	m_sliderTime->setMaximumHeight(10);
 	m_sliderTime->setCursor(QCursor(Qt::PointingHandCursor));
 	m_sliderTime->setRange(0,0);
@@ -146,15 +150,22 @@ void CBottomFloatWidget::InitUi()
 
 	QHBoxLayout *hLayout4 = new QHBoxLayout();
 	hLayout4->addStretch();
-	hLayout4->addLayout(hLayout3);
 	hLayout4->addWidget(m_btnFullscreen,0,Qt::AlignVCenter);
-	hLayout4->setSpacing(40);
-	hLayout4->setContentsMargins(0,0,15,0);
+	hLayout4->addWidget(m_btnList,0,Qt::AlignVCenter);
+	hLayout4->setSpacing(10);
+	hLayout4->setContentsMargins(0,0,0,0);
+
+	QHBoxLayout *hLayout5 = new QHBoxLayout();
+	hLayout5->addStretch();
+	hLayout5->addLayout(hLayout3);
+	hLayout5->addLayout(hLayout4);
+	hLayout5->setSpacing(40);
+	hLayout5->setContentsMargins(0,0,15,0);
 
 	QHBoxLayout *hLayout = new QHBoxLayout();
 	hLayout->addLayout(hLayout1);
 	hLayout->addLayout(hLayout2);
-	hLayout->addLayout(hLayout4);
+	hLayout->addLayout(hLayout5);
 
 	QVBoxLayout *vLayout = new QVBoxLayout();
 	vLayout->addLayout(timeLayout);
@@ -174,6 +185,7 @@ void CBottomFloatWidget::InitSlot()
 	connect(m_btnForward, SIGNAL(clicked()), this, SIGNAL(sigForward()));
 	connect(m_btnRewind, SIGNAL(clicked()), this, SIGNAL(sigRewind()));
 	connect(m_btnFullscreen, SIGNAL(clicked()), this, SIGNAL(sigFullscreen()));
+	connect(m_btnList, SIGNAL(clicked()), this, SIGNAL(sigPlaylist()));
 }
 
 bool CBottomFloatWidget::eventFilter(QObject *o, QEvent *e)

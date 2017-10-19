@@ -12,6 +12,7 @@
 #include "csystemwidget.h"
 #include "csimpleparamwidget.h"
 #include "caboutwidget.h"
+#include "cplistwidget.h"
 #include "cplaylist.h"
 #include <vlc/vlc.h>
 
@@ -66,6 +67,7 @@ private:
 	CSystemWidget *m_systemWidget;
 	CSimpleParamWidget *m_simpleParamWidget;
 	CAboutWidget *m_aboutWidget;
+	CPlistWidget *m_pListWidget;
 
 	libvlc_instance_t *vlcInstance;
 	libvlc_media_player_t *vlcPlayer;
@@ -74,6 +76,8 @@ private:
 	CPlayList *m_playList;
 	bool m_bStartJumpTime;
 	quint32 m_iJumpTime;
+
+	bool m_bPlaylist;
 
 private:
 	void Init();
@@ -95,6 +99,8 @@ public slots:
 	void SlotFullScreen();
 	void SlotSkinWidget();
 	void SlotAbout();
+	void SlotPlaylist();
+	void SlotSelectFile(QString path);
 
 };
 

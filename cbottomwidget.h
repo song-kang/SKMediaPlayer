@@ -55,6 +55,7 @@ signals:
 	void sigForward();
 	void sigRewind();
 	void sigFullscreen();
+	void sigPlaylist();
 
 private:
 	SKMediaPlayer *m_app;

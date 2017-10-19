@@ -174,6 +174,7 @@ void CBottomWidget::InitSlot()
 	connect(m_btnForward, SIGNAL(clicked()), this, SIGNAL(sigForward()));
 	connect(m_btnRewind, SIGNAL(clicked()), this, SIGNAL(sigRewind()));
 	connect(m_btnFullscreen, SIGNAL(clicked()), this, SIGNAL(sigFullscreen()));
+	connect(m_btnList, SIGNAL(clicked()), this, SIGNAL(sigPlaylist()));
 }
 
 bool CBottomWidget::eventFilter(QObject *o, QEvent *e)

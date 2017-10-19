@@ -8,6 +8,9 @@ CPlayList::CPlayList(QObject *parent)
 
 CPlayList::~CPlayList()
 {
+	foreach (stuPlayItem *item, m_iPlayItems)
+		delete item;
+
 	m_iPlayItems.clear();
 }
 
