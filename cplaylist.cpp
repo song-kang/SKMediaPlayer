@@ -79,6 +79,20 @@ quint32 CPlayList::AppendItem(QString path)
 	return 0;
 }
 
+bool CPlayList::DeleteItem(QString path)
+{
+	foreach (stuPlayItem *item, m_iPlayItems)
+	{
+		if (item->path == path)
+		{
+			m_iPlayItems.removeOne(item);
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void CPlayList::ReplaceItemTime(QString path, quint32 time)
 {
 	foreach (stuPlayItem *item, m_iPlayItems)

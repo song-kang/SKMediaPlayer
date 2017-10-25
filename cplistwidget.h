@@ -38,7 +38,10 @@ public:
 	void SetPlayList(CPlayList *l) { m_playList = l; }
 
 private:
+	QWidget *m_mainWidget;
 	QGridLayout *m_mainGridLayout;
+	QPushButton *m_iBtnPlus;
+	QPushButton *m_iBtnMinus;
 	QTableWidget *m_iPlayListTableWidget;
 	CPlayList *m_playList;
 	ItemDelegate *m_itemDelegate;
@@ -48,11 +51,13 @@ private:
 	void InitUi();
 	void InitSlot();
 
-private slots:
-	void SlotPlaylistItemClicked(QTableWidgetItem *item);
-
 signals:
 	void sigSelectFile(QString);
+
+private slots:
+	void SlotPlaylistItemClicked(QTableWidgetItem *item);
+	void SlotAddPlayItem();
+	void SlotDeletePlayItem();
 
 private:
 	SKMediaPlayer *m_app;

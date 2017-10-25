@@ -277,14 +277,34 @@
 <context>
     <name>CPlistWidget</name>
     <message>
-        <location filename="cplistwidget.cpp" line="27"/>
+        <location filename="cplistwidget.cpp" line="29"/>
         <source>Name</source>
         <translation type="unfinished">名称</translation>
     </message>
     <message>
-        <location filename="cplistwidget.cpp" line="27"/>
+        <location filename="cplistwidget.cpp" line="29"/>
         <source>Time</source>
         <translation type="unfinished">时间</translation>
+    </message>
+    <message>
+        <location filename="cplistwidget.cpp" line="69"/>
+        <source>Add Media Play</source>
+        <translation type="unfinished">添加</translation>
+    </message>
+    <message>
+        <location filename="cplistwidget.cpp" line="76"/>
+        <source>Delete Media Play</source>
+        <translation type="unfinished">删除</translation>
+    </message>
+    <message>
+        <location filename="cplistwidget.cpp" line="161"/>
+        <source>Movie File(*.rmvb *.rm *.avi *.wmv *.mkv *.asf *.3gp *.mov *.mp4 *.ogv *.flv);;All File(*.*)</source>
+        <translation type="unfinished">媒体文件(*.rmvb *.rm *.avi *.wmv *.mkv *.asf *.3gp *.mov *.mp4 *.ogv *.flv);;所有文件(*.*)</translation>
+    </message>
+    <message>
+        <location filename="cplistwidget.cpp" line="162"/>
+        <source>Load File</source>
+        <translation type="unfinished">选择文件</translation>
     </message>
 </context>
 <context>

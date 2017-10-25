@@ -22,6 +22,8 @@ CPlistWidget::~CPlistWidget()
 void CPlistWidget::Init()
 {
 	m_mainGridLayout = new QGridLayout;
+	m_iBtnPlus = new QPushButton(this);
+	m_iBtnMinus = new QPushButton(this);
 	m_iPlayListTableWidget = new QTableWidget(this);
 	QStringList table_header;
 	table_header << tr("Name") << tr("Time");
@@ -36,6 +38,7 @@ void CPlistWidget::Init()
 	m_iPlayListTableWidget->horizontalHeader()->setVisible(false);						//去除表头
 	m_iPlayListTableWidget->setFrameShape(QFrame::NoFrame);								//设置无边框
 	m_iPlayListTableWidget->setShowGrid(false);											//设置不显示格子线
+	m_iPlayListTableWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);		//可多选（Ctrl、Shift、  Ctrl+A都可以）
 	m_iPlayListTableWidget->setStyleSheet("background-color:rgb(255,255,255,10);selection-background-color:rgb(255,255,255,50);");
 
 	//设置水平、垂直滚动条样式
@@ -61,7 +64,35 @@ void CPlistWidget::Init()
 void CPlistWidget::InitUi()
 {
 	setFixedWidth(COLUMN_NAME_WIDTH+COLUMN_TIME_WIDTH+10);
-	m_mainGridLayout->addWidget(m_iPlayListTableWidget);
+
+	m_iBtnPlus->setFixedSize(20,20);
+	m_iBtnPlus->setToolTip(tr("Add Media Play"));
+	m_iBtnPlus->setStyleSheet(
+		"QPushButton{border-image:url(:/image/plus_normal);}"
+		"QPushButton::hover{border-image:url(:/image/plus_hover);}"
+		"QPushButton::pressed{border-image:url(:/image/plus_down);}");
+
+	m_iBtnMinus->setFixedSize(20,20);
+	m_iBtnMinus->setToolTip(tr("Delete Media Play"));
+	m_iBtnMinus->setStyleSheet(
+		"QPushButton{border-image:url(:/image/minus_normal);}"
+		"QPushButton::hover{border-image:url(:/image/minus_hover);}"
+		"QPushButton::pressed{border-image:url(:/image/minus_down);}");
+
+	QHBoxLayout *hLayout = new QHBoxLayout();
+	hLayout->addWidget(m_iBtnPlus,0,Qt::AlignVCenter);
+	hLayout->addWidget(m_iBtnMinus,0,Qt::AlignVCenter);
+	hLayout->addStretch();
+	hLayout->setContentsMargins(6,0,0,0);
+
+	QVBoxLayout *vLayout = new QVBoxLayout();
+	vLayout->addLayout(hLayout);
+	vLayout->addWidget(m_iPlayListTableWidget);
+	vLayout->setContentsMargins(0,6,0,0);
+
+	m_mainWidget = new QWidget();
+	m_mainWidget->setLayout(vLayout);
+	m_mainGridLayout->addWidget(m_mainWidget);
 	m_mainGridLayout->setContentsMargins(0,0,0,0);
 	setLayout(m_mainGridLayout);
 	setCursor(Qt::ArrowCursor);
@@ -69,6 +100,8 @@ void CPlistWidget::InitUi()
 
 void CPlistWidget::InitSlot()
 {
+	connect(m_iBtnPlus,SIGNAL(clicked()),this,SLOT(SlotAddPlayItem()));
+	connect(m_iBtnMinus,SIGNAL(clicked()),this,SLOT(SlotDeletePlayItem()));
 	connect(m_iPlayListTableWidget,SIGNAL(itemDoubleClicked(QTableWidgetItem*)),this,SLOT(SlotPlaylistItemClicked(QTableWidgetItem*)));
 }
 
@@ -121,4 +154,35 @@ void CPlistWidget::SlotPlaylistItemClicked(QTableWidgetItem *item)
 	QString text = item->data(Qt::UserRole).toString();
 
 	emit sigSelectFile(text);
+}
+
+void CPlistWidget::SlotAddPlayItem()
+{
+	QString filter = tr("Movie File(*.rmvb *.rm *.avi *.wmv *.mkv *.asf *.3gp *.mov *.mp4 *.ogv *.flv);;All File(*.*)");
+	QStringList fileOpens = QFileDialog::getOpenFileNames(this,tr("Load File"),QString::null,filter);
+	foreach (QString s, fileOpens)
+	{
+		s.replace("/","\\");
+		m_playList->AppendItem(s);
+	}
+	Start();
+}
+
+void CPlistWidget::SlotDeletePlayItem()
+{
+	QList<QTableWidgetSelectionRange> ranges = m_iPlayListTableWidget->selectedRanges();
+	if (ranges.count() == 0)
+		return;
+
+	for(int i = 0; i < ranges.count(); i++)
+	{
+		int topRow = ranges.at(i).topRow();
+		int bottomRow = ranges.at(i).bottomRow();
+		for(int row = topRow; row <= bottomRow; row++)
+		{
+			QString text = m_iPlayListTableWidget->item(row,COLUMN_NAME)->data(Qt::UserRole).toString();
+			m_playList->DeleteItem(text);
+		}
+	}
+	Start();
 }

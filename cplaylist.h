@@ -27,6 +27,7 @@ public:
 	bool ReadList();
 	bool WriteList();
 	quint32 AppendItem(QString path);
+	bool DeleteItem(QString path);
 	void ReplaceItemTime(QString path, quint32 time);
 
 public:

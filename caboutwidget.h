@@ -7,7 +7,7 @@
 
 # define VERSION_MAJOR		2	/** major version number */
 # define VERSION_MINOR		0	/** minor version number */
-# define VERSION_REVISION	5	/** revision */
+# define VERSION_REVISION	6	/** revision */
 
 //////////////////// CAboutTopWidget ////////////////////
 class CAboutTopWidget : public QWidget

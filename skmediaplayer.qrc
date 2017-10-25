@@ -65,6 +65,12 @@
         <file alias="camera">Resources/images/camera.png</file>
         <file alias="link">Resources/images/link.png</file>
         <file alias="list">Resources/images/List.png</file>
+        <file alias="minus_down">Resources/images/minus_down.png</file>
+        <file alias="minus_hover">Resources/images/minus_hover.png</file>
+        <file alias="minus_normal">Resources/images/minus_normal.png</file>
+        <file alias="plus_down">Resources/images/plus_down.png</file>
+        <file alias="plus_hover">Resources/images/plus_hover.png</file>
+        <file alias="plus_normal">Resources/images/plus_normal.png</file>
     </qresource>
     <qresource prefix="/skin">
         <file alias="skin1">Resources/skins/skin1.png</file>
