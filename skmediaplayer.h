@@ -78,6 +78,7 @@ private:
 	quint32 m_iJumpTime;
 
 	bool m_bPlaylist;
+	int	m_iPlaylistRow;
 
 private:
 	void Init();

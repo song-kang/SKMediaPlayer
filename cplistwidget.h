@@ -36,6 +36,8 @@ public:
 	void Start();
 	void SetApp(SKMediaPlayer *a) { m_app = a; }
 	void SetPlayList(CPlayList *l) { m_playList = l; }
+	void StartNext(int &currentRow);
+	int GetPlaylistRow(QString file);
 
 private:
 	QWidget *m_mainWidget;

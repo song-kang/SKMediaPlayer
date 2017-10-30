@@ -186,3 +186,27 @@ void CPlistWidget::SlotDeletePlayItem()
 	}
 	Start();
 }
+
+void CPlistWidget::StartNext(int &currentRow)
+{
+	if (currentRow == -1 || (++currentRow) >= m_iPlayListTableWidget->rowCount())
+	{
+		currentRow = -1;
+		return;
+	}
+
+	QTableWidgetItem *item = m_iPlayListTableWidget->item(currentRow,COLUMN_NAME);
+	SlotPlaylistItemClicked(item);
+}
+
+int CPlistWidget::GetPlaylistRow(QString file)
+{
+	for (int row = 0; row < m_iPlayListTableWidget->rowCount(); row++)
+	{
+		QString text = m_iPlayListTableWidget->item(row,COLUMN_NAME)->data(Qt::UserRole).toString();
+		if (text == file)
+			return row;
+	}
+
+	return -1;
+}

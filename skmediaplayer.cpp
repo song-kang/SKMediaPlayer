@@ -48,6 +48,7 @@ void SKMediaPlayer::Init()
 	m_bIsShowSystemTime = true;
 	m_bIsShowParams = true;
 	m_bPlaylist = false;
+	m_iPlaylistRow = -1;
 
 	m_playList = new CPlayList(this);
 	m_playList->ReadList();
@@ -441,6 +442,7 @@ void SKMediaPlayer::Play(QString file)
 	if (libvlc_media_player_play(vlcPlayer) == -1)
 		return;
 
+	m_iPlaylistRow = m_pListWidget->GetPlaylistRow(file);
 	m_iCurrentFile = file;
 	m_iJumpTime = m_playList->AppendItem(file);
 	if (m_iJumpTime > 0)	
@@ -634,6 +636,7 @@ void SKMediaPlayer::SlotTimeout()
 			{
 				SlotPause();
 				m_playList->ReplaceItemTime(m_iCurrentFile,0);
+				m_pListWidget->StartNext(m_iPlaylistRow);
 			}
 		}
 
@@ -693,6 +696,8 @@ void SKMediaPlayer::SlotForward()
 	if (pos >= dur)
 	{
 		SlotPause();
+		m_playList->ReplaceItemTime(m_iCurrentFile,0);
+		m_pListWidget->StartNext(m_iPlaylistRow);
 		return;
 	}
 
