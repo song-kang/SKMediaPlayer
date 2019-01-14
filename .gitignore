@@ -50,6 +50,8 @@ GeneratedFiles/Release/moc_cplaylist.cpp
 *.dll
 *.plist
 Win32/Debug/plugins/access/libbluray-j2se-0.9.3.jar
-Win32/Debug/plugins/plugins.dat
+Win32/Debug/plugins/plugins.dat*
+*.aps
+Win32/Release/plugins/plugins.dat*
 GeneratedFiles/Debug/moc_cplistwidget.cpp
 GeneratedFiles/Release/moc_cplistwidget.cpp
